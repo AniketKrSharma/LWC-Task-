@@ -1,0 +1,64 @@
+<template>
+    <div>
+        <lightning-card title="Readers Details">
+            <div> 
+                <table class="slds-table  slds-table_bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="slds-size_1-of-6" scope="col">Book Name</th>
+                            <th class="slds-size_1-of-6" scope="col">Issue Date</th>
+                            <th class="slds-size_1-of-6" scope="col">Return Date</th>
+                            <th class="slds-size_1-of-6" scope="col">Tentative Date of Return</th>
+                            <th class="slds-size_1-of-6" scope="col">Fine</th>
+                            <th class="slds-size_1-of-6" scope="col">Return Status</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <template if:true={loaded}>
+                        <template for:each={tableData} for:item="item" for:index="index">
+                            <tr key={item.Id} class="slds-hint-parent">
+                                <td class="slds-size_1-of-6">
+                                    <div>
+                                        <lightning-input label="" value={item.Name} read-only=true></lightning-input>
+                                    </div>
+                                </td>
+                                <td class="slds-size_1-of-6">
+                                    <div>
+                                        <lightning-input label="" value={item.From} read-only="true"></lightning-input>
+                                    </div>
+                                </td>
+                                <td class="slds-size_1-of-6">
+                                    <div>
+                                        <lightning-input label="" value={item.To} read-only="true"></lightning-input>
+                                    </div>
+                                </td>
+                                <td class="slds-size_1-of-6">
+                                    <div>
+                                        <lightning-input label="" value={item.Returned} read-only="true"></lightning-input>
+                                    </div>
+                                </td>
+                                
+                                <td class="slds-size_1-of-6">
+                                    <div class="slds-text-color_error">
+                                        <lightning-input label="" value={item.Fine} read-only="true"></lightning-input>
+                                    </div>
+                                </td>
+                                <td class="slds-size_1-of-6">
+                                    <div>
+                                        <lightning-input label="" value={item.Returned} read-only="true"></lightning-input>
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+                        </template>
+                        <template if:false={loaded}>
+                            <lightning-spinner alternative-text="Loading" size="large" ></lightning-spinner>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </lightning-card>
+    </div>   
+</template>
+

@@ -1,0 +1,60 @@
+<template>
+    <lightning-card title="Issue Book">
+        <div slot="actions" class="slds-float--right">
+            <template if:false={mode2}>
+                <lightning-button variant="brand" label="Issue Book" title="Issue Book" icon-name="utility:save" onclick={issueBook} disabled={mode}></lightning-button>
+            </template>
+            <template if:true={mode2}>
+                <lightning-button variant="brand" label="Issue Book" title="Issue Book" icon-name="utility:save" onclick={issueBook} disabled=true></lightning-button>
+            </template>
+        </div>
+        <div slot="actions" class="slds-float--right" style='margin-right:12px'>
+            <lightning-button label="Cancel" title="Cancel" onclick={msgParent} variant="destructive" ></lightning-button>
+        </div>
+        <div slot="actions" class="slds-float--right" style="margin-right:12px">
+            <lightning-button label="Reset" title="Reset" onclick={reset}></lightning-button>
+        </div>
+        <div>
+            <c-component-first onselected={getBookId}
+                                    obj-name="Book__c" 
+                                    fields-name="Name, Price__c,Number_of_Free_Books__c"
+                                    label-name="Book">
+            </c-component-first>
+            <template if:false={mode}>
+            <c-component-first onselected={getReaderId}
+                                    obj-name="Reader__c" 
+                                    fields-name="Name"
+                                    label-name="Reader">
+            </c-component-first>
+            </template>
+            <div class="slds-p-horizontal_small">
+                <div class="row">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <div class="slds-combobox_container">
+                                <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click" aria-expanded="false"
+                                    aria-haspopup="listbox" role="combobox">
+                                    <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right">
+                                    <div>
+                                    <template if:true={mode}>
+                                        <lightning-input label="Reader" placeholder="     Search..." type="search" aria-autocomplete="list" aria-controls="listbox-id-12" role="textbox"
+                                                        disabled={mode}></lightning-input>
+                                    </template>
+                                    <lightning-input class={dateCssClass} label="Tentative Date of Return" value={dateOfReturn} type="date" onchange={selectDateofReturn} disabled={mode}></lightning-input>
+                                    <template if:true={mode2}>
+                                        <div class="slds-text-color_error slds-p-left_x-small">
+                                            Date must be in Future !
+                                        </div>
+                                    </template>
+                                    <lightning-input label="Issuing Charges" value={charges} read-only=true></lightning-input>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

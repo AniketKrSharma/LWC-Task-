@@ -1,0 +1,98 @@
+<template>
+   <div style="margin-bottom: 20px">
+       <lightning-card title="Search Book Filtered By ">
+           <div class="slds-form_horizontal slds-form slds-grid slds-wrap">
+               <lightning-input label="Search" value={searchKey} class="slds-size_1-of-2" type="search" onchange={fatchDetails}></lightning-input>
+               <lightning-combobox
+                           name="limit"
+                           label={totalRecords}
+                           value={limit}
+                           placeholder={limit}
+                           options={pagePicklist}
+                           onchange={limitHasChanged}
+                           class="slds-size_1-of-2">                    
+               </lightning-combobox>
+           </div>
+           <div slot="actions" class="slds-float--right" style='margin-right:12px'>
+               <lightning-radio-group 
+                                   name="radioGroup"
+                                   label=""
+                                   options={buttonOptions}
+                                   value={value1}
+                                   onchange={changecolor}
+                                   type = "button">
+               </lightning-radio-group>
+           </div>  
+               
+       </lightning-card>
+   <div>
+       <div class="page-info" style='margin-left:400px'>
+           Displaying {startingRecord} to {endingRecord} of {totalRecordCount} records.
+           Page {page} of {totalPage}.
+           
+         </div>
+   </div>
+   <template if:true={tableData}>
+   <lightning-card title={result1}>
+       <table class="slds-table  slds-table_bordered ">
+           <thead>
+               <tr class="slds-line-height_reset">
+                   <th class="slds-size_1-of-6" scope="col">Name</th>
+                   <th class="slds-size_1-of-6" scope="col">ISBN</th>
+                   <th class="slds-size_1-of-6" scope="col">Author</th>
+                   <th class="slds-size_1-of-6" scope="col">No of Available Copy</th>
+                   <th class="slds-size_1-of-6" scope="col">No of Issued Copy</th>
+                   <th class="slds-size_1-of-6" scope="col">Total Copies</th>
+               </tr>
+           </thead>
+
+           <tbody>
+               <template for:each={tableData} for:item="item">
+                   <tr key={item.id} class="slds-hint-parent">
+                       <td class="slds-size_1-of-6">
+                           <div>
+                               <lightning-input label="" value={item.Name} read-only=true onclick={moveToCmp3} data-index={item.Index__c} style="-webkit-text-fill-color:blue" ></lightning-input>
+                           </div>
+                       </td>
+                       <td class="slds-size_1-of-6">
+                           <div>
+                               <lightning-input label="" value={item.ISBN_Number__c} read-only=true></lightning-input>
+                           </div>
+                       </td>
+                       <td class="slds-size_1-of-6">
+                           <div>
+                               <lightning-input label="" value={item.Author__c} read-only=true></lightning-input>
+                           </div>
+                       </td>
+                       <td class="slds-size_1-of-6">
+                           <div>
+                               <lightning-input label="" value={item.Number_of_Free_Books__c} read-only=true></lightning-input>
+                           </div>
+                       </td>
+                       <td class="slds-size_1-of-6">
+                           <div>
+                               <lightning-input label="" value={item.Number_of_Issued_Books__c} read-only=true></lightning-input>
+                           </div>
+                       </td>
+                       <td class="slds-size_1-of-6">
+                           <div>
+                               <lightning-input label="" value={item.Number_of_Books__c} read-only=true></lightning-input>
+                           </div>
+                       </td>
+                   </tr>
+               </template>
+           </tbody>
+       </table>
+   </lightning-card>
+       <lightning-layout>
+           <lightning-layout-item>
+               <lightning-button label="Previous" icon-name="utility:chevronleft" onclick={previousHandler} disabled={disablePrev} ></lightning-button>
+           </lightning-layout-item>
+           <lightning-layout-item flexibility="grow"></lightning-layout-item>
+           <lightning-layout-item>
+               <lightning-button label="Next" icon-name="utility:chevronright" icon-position="right" onclick={nextHandler} disabled={disableNext}></lightning-button>
+           </lightning-layout-item>
+       </lightning-layout>
+   </template>
+   </div>
+</template>

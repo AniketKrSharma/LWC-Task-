@@ -1,0 +1,74 @@
+<template>
+   <div>
+       <lightning-card title="Book Information">
+           <div class="slds-form_horizontal slds-form slds-grid slds-wrap">
+                <lightning-input label="Name of Book" value={name} read-only="true" class="slds-size_1-of-5"></lightning-input>
+                <lightning-input label="Number of Reader" value={Book_Copy__r} read-only="true" class="slds-size_1-of-5"></lightning-input>              
+                <lightning-input label="Number of Available Books" value={totalBooks} read-only="true" class="slds-size_1-of-5"></lightning-input>              
+                <lightning-input label="Number of Issued Books" value={issuedBooks} read-only="true" class="slds-size_1-of-5"></lightning-input>
+           </div>
+       </lightning-card>
+       <div>
+
+       </div>
+       <template if:true={tableData}>
+       <lightning-card title="Issued Book Details">
+           <table class="slds-table  slds-table_bordered">
+               <thead>
+                   <tr class="slds-line-height_reset">
+                       <th class="slds-size_1-of-5" scope="col">Reader Name</th>
+                       <th class="slds-size_1-of-5" scope="col">Book Copy</th>
+                       <th class="slds-size_1-of-5" scope="col">From</th>
+                       <th class="slds-size_1-of-5" scope="col">To</th>
+                   </tr>
+               </thead>
+
+               <tbody>
+                   <template for:each={tableData} for:item="item">
+                       <tr key={item.Id} class="slds-hint-parent">
+                           <td class="slds-size_1-of-5">
+                               <div>
+                                   <lightning-input label="" value={item.Name} data-index={item.Index__c} read-only=true></lightning-input>
+                               </div>
+                           </td>
+                           <td class="slds-size_1-of-5">
+                               <div>
+                                   <lightning-input label="" value={item.Book_Copy__r.Name} data-index={item.Index__c} read-only=true></lightning-input>
+                               </div>
+                           </td>
+                           <td class="slds-size_1-of-5">
+                               <div>
+                                   <lightning-input label="" value={item.From__c} data-index={item.Index__c} read-only=true></lightning-input>
+                               </div>
+                           </td>
+                           <td class="slds-size_1-of-5">
+                               <div>
+                                   <lightning-input label="" value={item.To__c} data-index={item.Index__c} read-only=true></lightning-input>
+                               </div>
+                           </td>
+                           <td class="slds-size_1-of-5">
+                               <div>
+                                   <template if:true={item.Is_Returned__c}>
+                                       |Book is {item.Status__c} |
+                                   </template>
+                                   <template if:false={item.Is_Returned__c}>
+                                       <lightning-radio-group
+                                                       name="actionButtons"
+                                                       label=""
+                                                       options={buttonOptions}
+                                                       value={value2}
+                                                       onchange={updateIssueObj}
+                                                       type="button"
+                                                       data-index={item.Index__c}>
+                                       </lightning-radio-group>
+                                   </template>
+                               </div>
+                           </td>
+                       </tr>
+                   </template>
+               </tbody>
+           </table>
+       </lightning-card>
+       </template>
+   </div>
+</template>

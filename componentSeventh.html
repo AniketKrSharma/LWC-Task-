@@ -1,0 +1,68 @@
+<template>
+    <div>
+        <lightning-card title="Readers Details">
+            <div> 
+                <table class="slds-table  slds-table_bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="slds-size_1-of-5" scope="col">Name</th>
+                            <th class="slds-size_1-of-5" scope="col">Issued Books</th>
+                            <th class="slds-size_1-of-5" scope="col">Returned Books</th>
+                            <th class="slds-size_1-of-5" scope="col" >OverDated Books</th>
+                            <th class="slds-size_1-of-5" scope="col">Fine</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <template if:true={loaded}>
+                        <template for:each={tableData} for:item="item" for:index="index">
+                            <tr key={item.Id} class="slds-hint-parent">
+                                <td class="slds-size_1-of-5">
+                                    <div>
+                                        <lightning-input label="" value={item.Name} read-only=true></lightning-input>
+                                    </div>
+                                </td>
+                                <td class="slds-size_1-of-5">
+                                    <div>
+                                        <lightning-input label="" value={item.Issued_Book} read-only="true"></lightning-input>
+                                    </div>
+                                </td>
+                                <td class="slds-size_1-of-5">
+                                    <div>
+                                        <lightning-input label="" value={item.Returned} read-only="true"></lightning-input>
+                                    </div>
+                                </td>
+                                <td class="slds-size_1-of-5">
+                                    <!-- <div>
+                                        <lightning-input label="" value={item.Over_due} read-only="true"></lightning-input>
+                                    </div> -->
+                                    <template for:each={item.Copy_name} for:item="item2">
+                                        <!-- <template if:true={showChild}> -->
+                                        <div key={item2.Id}>
+                                            <template if:false={item2.Is_Returned__c}>
+                                                <div class="slds-border_bottom slds-border_right slds-text-color_error" style="margin-left: 5px;"> <!--class="overdue"-->
+                                                    {item2.Book_Copy__r.Name}
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <!-- </template> -->
+                                    </template>
+                                </td>
+                                <td class="slds-size_1-of-5">
+                                    <div class="slds-text-color_error">
+                                        <lightning-input label="" value={item.Fine} read-only="true"></lightning-input>
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+                        </template>
+                        <template if:false={loaded}>
+                            <lightning-spinner alternative-text="Loading" size="large" ></lightning-spinner>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </lightning-card>
+    </div>
+    
+</template>

@@ -1,0 +1,64 @@
+<template>
+    <div style="margin-bottom: 20px">
+    <lightning-card title="Book Entry">
+        <div class="slds-form_horizontal slds-form slds-grid slds-wrap">
+        <lightning-input label="Book Name" value={Book__c.Name} data-no=1 onchange={getnewValues} required=true class="slds-size_1-of-1"></lightning-input>
+        <lightning-input label="ISBN Number" value={Book__c.ISBN_Number__c} type="search" onchange={searchISBN} required=true read-only={mode} class="slds-size_1-of-1"></lightning-input>
+        <lightning-input label="Price" value={Book__c.Price__c} type="number" data-no=3 onchange={getnewValues} class="slds-size_1-of-1"></lightning-input>
+        <lightning-input label="Author" value={Book__c.Author__c} data-no=4 onchange={getnewValues} class="slds-size_1-of-1"></lightning-input>
+        <lightning-input label="Number of Books" value={bookCopyCount} data-no=5 onchange={getnewValues} type="number" maxlength=2 class="slds-size_1-of-1"></lightning-input>
+        </div>
+        <div slot="actions" class="slds-float--right">
+            <lightning-button label="Add Books" title="Add Books" icon-name="utility:save"
+                onclick={insertBooks}></lightning-button>
+        </div>
+    </lightning-card>
+    </div>
+    
+    <div>
+    <template if:true={tableDataToShow}>
+        <lightning-card title="Search Result">
+
+            <table aria-describedby="conatact-list" class="slds-table  slds-table_bordered ">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="slds-size_1-of-4 " scope="col">Book Name</th>
+                        <th class="slds-size_1-of-4 " scope="col">ISBN Number</th>
+                        <th class="slds-size_1-of-4 " scope="col">Author</th>
+                        <th class="slds-size_1-of-4 " scope="col">Number of Books Exists</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={tableDataToShow} for:item="item">
+                        <tr key={item.id} class="slds-hint-parent">
+                            <td class="slds-size_1-of-4">
+                                <div>
+                                    <lightning-input label="" value={item.Name} read-only=true data-index={item.Index__c} ondblclick={selectToDisplay}></lightning-input>
+                                </div>
+                            </td>
+                            <td class="slds-size_1-of-4">
+                                <div>
+                                    <lightning-input label="" value={item.ISBN_Number__c} read-only=true data-index={item.Index__c} ondblclick={selectToDisplay}></lightning-input>
+                                </div>
+                            </td>
+                            <td class="slds-size_1-of-4">
+                                <div>
+                                    <lightning-input label="" value={item.Author__c} read-only=true data-index={item.Index__c} ondblclick={selectToDisplay}></lightning-input>
+                                </div>
+                            </td>
+                            <td class="slds-size_1-of-4">
+                                <div>
+                                    <lightning-input label="" value={item.Number_of_Books__c} read-only=true data-index={item.Index__c} ondblclick={selectToDisplay}></lightning-input>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+
+            </table>
+
+        </lightning-card>
+    </template>
+    </div>
+
+</template>

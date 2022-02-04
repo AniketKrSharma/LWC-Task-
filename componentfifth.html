@@ -1,0 +1,41 @@
+<template>
+    <div>
+        <lightning-card>
+            <lightning-tabset variant="default" active-tab-value={tabId}>
+                <!-- <div class="demo-only" style="height:12rem"> -->
+                
+                    <lightning-tab label="Add Books" title="Add Books" id="tab1" value="tab1" onactive={selectedTab}>
+                        <c-component-first></c-component-first>
+                    </lightning-tab>
+
+                    <lightning-tab label="Search Books" title="Search Books" id="tab2" value="tab2" onactive={selectedTab}>
+                        <c-component-second onissue={handleIssueClick}
+                                        onshowdetails={openInfoTab}></c-component-second>
+                    </lightning-tab>
+
+                    <lightning-tab label="Book Info" title="Book Info" id="tab3" value="tab3" onactive={selectedTab}>
+                        <c-component-third book-id1={bookId}
+                                        onissue={moveToIssueTab}>
+                        </c-component-third>
+                    </lightning-tab>
+
+                    <lightning-tab label="Issue Book" title="Issue Book" id="tab4" value="tab4" onactive={selectedTab}>
+                        <c-component-forth onmove={moveTab}></c-component-forth>
+                    </lightning-tab>
+
+                    <lightning-tab label="Issued Books" title="Issued Books" id="tab5" value="tab5" onactive={selectedTab}>
+                        <c-component-sixth onopen3={openInfoTab}></c-component-sixth>
+                    </lightning-tab>
+
+                    <lightning-tab label="Readers Info" title="Readers Info" id="tab6" value="tab6" onactive={selectedTab}>
+                        <c-component-seventh>
+
+                        </c-component-seventh>
+                    </lightning-tab>
+                    <!-- </template> -->
+                    
+                <!-- </div> -->
+            </lightning-tabset>
+        </lightning-card>
+    </div>
+</template>
